@@ -6,11 +6,13 @@ A CLI utility for change Windows wallpaper along with scaling.
 :+1: [Releases](https://github.com/tonywei92/winwallpaper/releases/latest)
 
 ## Usage
+```
 Usage: WallpaperChanger.exe [options]
 Allowed options:
   --help                     show this help message
   -p [ --path ] arg          image path
   -s [ --style ] arg (=fill) style eg. tile, center, stretch, fit, and fill
+```
 
 ## Build
 This project using some [Boost.org](https://www.boost.org) C++ library, build boost library using bjam with static runtime link by running:
