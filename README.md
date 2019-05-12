@@ -3,7 +3,7 @@ A CLI utility for change Windows wallpaper along with scaling.
 
 
 ## Download
-:+1: [Releases](/releases/latest)
+:+1: [Releases](https://github.com/tonywei92/winwallpaper/releases/latest)
 
 ## Usage
 Usage: WallpaperChanger.exe [options]
