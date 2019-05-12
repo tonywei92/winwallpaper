@@ -7,7 +7,7 @@ A CLI utility for change Windows wallpaper along with scaling.
 
 ## Usage
 ```
-Usage: WallpaperChanger.exe [options]
+Usage: winwallpaper.exe [options]
 Allowed options:
   --help                     show this help message
   -p [ --path ] arg          image path

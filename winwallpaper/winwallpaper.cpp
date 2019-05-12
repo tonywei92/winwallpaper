@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 	WPSTYLE style = WPSTYLE::FILL;
 	std::string path;
 	std::string styleStr;
-	po::options_description desc("WallpaperChanger (c) Tony Song <tonywei92@gmail.com>\nUsage: WallpaperChanger.exe [options]\nAllowed options");
+	po::options_description desc("Winwallpaper (c) Tony Song <tonywei92@gmail.com>\nUsage: winwallpaper.exe [options]\nAllowed options");
 	desc.add_options()
 		("help", "show this help message")
 		("path,p", po::value<std::string>(&path)->default_value(""), "image path")
