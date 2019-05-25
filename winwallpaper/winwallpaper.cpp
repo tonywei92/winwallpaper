@@ -18,6 +18,7 @@ int main(int argc, char** argv)
 	po::options_description desc("Winwallpaper (c) Tony Song <tonywei92@gmail.com>\nUsage: winwallpaper.exe [options]\nAllowed options");
 	desc.add_options()
 		("help", "show this help message")
+		("get,g", "get current wallpaper")
 		("path,p", po::value<std::string>(&path)->default_value(""), "image path")
 		("style,s", po::value<std::string>(&styleStr)->default_value("fill"), "style eg. tile, center, stretch, fit, and fill");
 
@@ -25,15 +26,26 @@ int main(int argc, char** argv)
 	po::store(po::parse_command_line(argc, argv, desc), vm);
 	po::notify(vm);
 
+	if (vm.count("get")) {
+		wchar_t imagePath[MAX_PATH];
+		if (SystemParametersInfoW(SPI_GETDESKWALLPAPER, MAX_PATH, imagePath, 0)) {
+			wprintf(L"%s\n", imagePath);
+			return 0;
+		}
+		return 1;
+	}
+
 	if (vm.count("help") || argc == 1) {
 		std::cout << desc << "\n";
-		return 1;
+		return 0;
 	}
 
 	if (path == "") {
 		std::cout << "Invalid path\n";
-		return 1;
+		return 0;
 	}
+
+	
 
 	if (styleStr == "tile") {
 		style = WPSTYLE::TILE;
@@ -52,20 +64,26 @@ int main(int argc, char** argv)
 	}
 	else {
 		std::cout << "invalid style, allowed style: tile, center, stretch, fit, and fill\n";
-		return 1;
+		return 0;
 	}
 
 	std::cout << "Done." << "\n";
 
 	setWallpaper(s2ws(path).c_str(), style);
-
+	return 0;
 }
 
 void setWallpaper(LPCWSTR path, WPSTYLE style) {
+	wchar_t fullpath[MAX_PATH];
+	_wfullpath(
+		fullpath,
+		path,
+		MAX_PATH
+	);
 
 	setWallpaperStyle(style);
 
-	SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (void*)path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
+	SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, fullpath, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE);
 }
 
 void setWallpaperStyle(WPSTYLE style) {
